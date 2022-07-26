@@ -13,7 +13,7 @@ class PointMovingOnShapes(Scene):
 
 
     def construct(self):
-        
+        disalign = 1.5 * DOWN
         equation = MathTex("x^2+y^2", "=", "z^2")
         self.play(Write(equation))
         self.wait()
@@ -21,20 +21,20 @@ class PointMovingOnShapes(Scene):
 
         #self.grid()
 
-        l1 = Line(ORIGIN - 2 * RIGHT, ORIGIN + 2 * RIGHT, color=BLUE)
-        l2 = Line(ORIGIN + 2 * RIGHT, ORIGIN - 2 * RIGHT + 3 * UP, color=BLUE)
-        l3 = Line(ORIGIN - 2 * RIGHT + 3 * UP, ORIGIN - 2 * RIGHT, color=BLUE)
+        l1 = Line(ORIGIN - 2 * RIGHT + disalign, ORIGIN + 2 * RIGHT + disalign, color=BLUE)
+        l2 = Line(ORIGIN + 2 * RIGHT + disalign, ORIGIN - 2 * RIGHT + 3 * UP + disalign, color=BLUE)
+        l3 = Line(ORIGIN - 2 * RIGHT + 3 * UP + disalign, ORIGIN - 2 * RIGHT + disalign, color=BLUE)
         self.play(GrowFromPoint(l1, l1.start))
         self.play(GrowFromPoint(l2, l2.start))
         self.play(GrowFromPoint(l3, l3.start))
         self.wait()
 
-        sq1 = Square(4).shift(DOWN*2)
+        sq1 = Square(4).shift(DOWN*2 + disalign)
         self.play(GrowFromEdge(sq1, edge=UP))
-        sq2 = Square(3).shift(LEFT*1.5+LEFT*2+ UP * 1.5)
+        sq2 = Square(3).shift(LEFT*1.5+LEFT*2+ UP * 1.5 + disalign)
         self.play(GrowFromEdge(sq2, edge=RIGHT))
         l3angle = (-180+l2.get_angle()*180/PI)*DEGREES
-        sq3 = Square(5).shift(ORIGIN+0.5*LEFT+2.5*UP).rotate(l3angle,about_point=l2.start)
+        sq3 = Square(5).shift(ORIGIN+0.5*LEFT+2.5*UP + disalign).rotate(l3angle,about_point=l2.start)
         self.play(GrowFromEdge(sq3, edge=DOWN))
         self.wait()
         equationx = MathTex("x^2").shift(ORIGIN+sq1.get_center())
