@@ -1,0 +1,1 @@
+manim -p -ql -i scene.py PointMovingOnShapes
