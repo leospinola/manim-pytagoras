@@ -10,31 +10,49 @@ class PointMovingOnShapes(Scene):
             self.add(l1)
             l1 = Line(ORIGIN -10 * RIGHT + i * UP, ORIGIN +10 * RIGHT + i * UP, color=BLUE)
             self.add(l1)
+    
+    def intro(self):
+        photo = ImageMobject("resources/Pythagoras.png").scale(0.9).shift(ORIGIN+2.67*DOWN)
+        self.play(GrowFromPoint(photo, ORIGIN) )
+
+        pyt = Text('Pythagoras').shift(ORIGIN+1*DOWN).scale(2)
+        theorem = Text('Teorema').shift(ORIGIN+1*UP).scale(2)
+        self.play(Write(pyt))
+        self.play(Write(theorem))
+        self.remove(theorem,pyt)
+        self.play((photo).animate.scale(15,about_point=ORIGIN))
+        self.play(FadeOut(photo))
+
+        
+
 
 
     def construct(self):
-        disalign = 1.5 * DOWN
-        equation = MathTex("x^2+y^2", "=", "z^2")
+
+        self.intro()
+        
+        recenter = 1.5 * DOWN
+        equation = MathTex("x^2+y^2", "=", "z^2").scale(2)
         self.play(Write(equation))
         self.wait()
         self.remove(equation)
 
         #self.grid()
 
-        l1 = Line(ORIGIN - 2 * RIGHT + disalign, ORIGIN + 2 * RIGHT + disalign, color=BLUE)
-        l2 = Line(ORIGIN + 2 * RIGHT + disalign, ORIGIN - 2 * RIGHT + 3 * UP + disalign, color=BLUE)
-        l3 = Line(ORIGIN - 2 * RIGHT + 3 * UP + disalign, ORIGIN - 2 * RIGHT + disalign, color=BLUE)
+        l1 = Line(ORIGIN - 2 * RIGHT + recenter, ORIGIN + 2 * RIGHT + recenter, color=BLUE)
+        l2 = Line(ORIGIN + 2 * RIGHT + recenter, ORIGIN - 2 * RIGHT + 3 * UP + recenter, color=BLUE)
+        l3 = Line(ORIGIN - 2 * RIGHT + 3 * UP + recenter, ORIGIN - 2 * RIGHT + recenter, color=BLUE)
         self.play(GrowFromPoint(l1, l1.start))
         self.play(GrowFromPoint(l2, l2.start))
         self.play(GrowFromPoint(l3, l3.start))
         self.wait()
 
-        sq1 = Square(4).shift(DOWN*2 + disalign)
+        sq1 = Square(4).shift(DOWN*2 + recenter)
         self.play(GrowFromEdge(sq1, edge=UP))
-        sq2 = Square(3).shift(LEFT*1.5+LEFT*2+ UP * 1.5 + disalign)
+        sq2 = Square(3).shift(LEFT*1.5+LEFT*2+ UP * 1.5 + recenter)
         self.play(GrowFromEdge(sq2, edge=RIGHT))
         l3angle = (-180+l2.get_angle()*180/PI)*DEGREES
-        sq3 = Square(5).shift(ORIGIN+0.5*LEFT+2.5*UP + disalign).rotate(l3angle,about_point=l2.start)
+        sq3 = Square(5).shift(ORIGIN+0.5*LEFT+2.5*UP + recenter).rotate(l3angle,about_point=l2.start)
         self.play(GrowFromEdge(sq3, edge=DOWN))
         self.wait()
         equationx = MathTex("x^2").shift(ORIGIN+sq1.get_center())
@@ -101,7 +119,7 @@ class PointMovingOnShapes(Scene):
             (sq2_3).animate.shift(-sq2_3.get_center()+2*RIGHT + 1.5 * UP),
             (sq2_4).animate.shift(-sq2_4.get_center()+1*RIGHT + 2 * UP))
 
-        self.wait(10)
+        self.wait(4)
 
         equationy = equationy.shift(-equationy.get_center()-0.5*RIGHT)
 
